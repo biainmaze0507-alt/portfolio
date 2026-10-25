@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="746" height="836" viewBox="6 -16 746 836" fill="none">
+<title>DIO 로고</title>
+<desc>일정한 두께와 부드러운 원형 마감으로 다듬은 D 심볼. 테마 원 #9FB6D9, 투명 배경.</desc>
+<path d="M431 106C408 96 383 94 350 94H72V754H350C534 754 686 622 686 424C686 357 664 297 624 251" stroke="#242424" stroke-width="132" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="218" y="356" width="277" height="44" rx="22" fill="#242424"/>
+<rect x="218" y="452" width="195" height="44" rx="22" fill="#242424"/>
+<circle cx="607" cy="74" r="90" fill="#9FB6D9"/>
+</svg>
