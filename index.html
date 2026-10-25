@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>황민희 — Portfolio</title>
+  <meta name="description" content="흩어진 기준을 하나의 문서로 묶고 수치로 확인하는 개발자 황민희의 포트폴리오">
+
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+
+  <style>
+  /* 원색 — 흰색이 주인공. 로즈와 퍼플은 나비 엠블럼에서. 바꾸려면 여기만. */
+  :root {
+    --ci-rose: #a45b78;
+    --ci-purple: #7b5f99;
+    --ci-navy: #1f2537;
+
+    --bg: #ffffff;
+    --bg-tint: #f8f6fb;
+    --line: rgba(31, 37, 55, 0.12);
+    --line-soft: rgba(31, 37, 55, 0.07);
+    --ink: var(--ci-navy);
+    --ink-2: #555b70;
+    --ink-3: #8b91a8;
+    --accent: #9a4f73;          /* 로즈 글자 · 흰 바탕 5.7:1 */
+    --accent-soft: #f6e8ef;
+    --purple: var(--ci-purple); /* 숫자 · 한계 · 막대 */
+    --purple-soft: #ece6f4;
+    --glow-a: rgba(211, 211, 255, 0.38);
+    --glow-b: rgba(164, 91, 120, 0.12);
+
+    --font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Segoe UI", sans-serif;
+    --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    --nav-h: 64px; --shell: 1040px; --pad: clamp(16px, 4vw, 40px);
+    --ease: cubic-bezier(.2,.7,.2,1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 24px); overflow-x: clip; -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 15.5px; line-height: 1.6; letter-spacing: -0.01em; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  h1, h2, h3, p, ul, dl, dd, figure, pre { margin: 0; }
+  ul { padding: 0; list-style: none; }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  :where(a, button, [tabindex]):focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  ::selection { background: var(--accent-soft); }
+  .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .sr-only:focus { position: fixed; top: 12px; left: 12px; width: auto; height: auto; clip: auto; margin: 0; padding: 8px 12px; background: var(--ink); color: #fff; border-radius: 6px; z-index: 200; }
+  .shell { width: 100%; max-width: var(--shell); margin: 0 auto; padding: 0 var(--pad); }
+
+  .atmosphere { position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background: radial-gradient(60vw 60vw at 85% -10%, var(--glow-a), transparent 62%), radial-gradient(50vw 50vw at 0% 100%, var(--glow-b), transparent 60%); }
+  main { position: relative; z-index: 1; }
+
+  /* 상단바 */
+  .nav { position: fixed; inset: 0 0 auto; z-index: 100; height: var(--nav-h); display: flex; align-items: center; border-bottom: 1px solid transparent; transition: background .3s var(--ease), border-color .3s var(--ease); }
+  .nav.is-stuck { background: rgba(255,255,255,.84); backdrop-filter: saturate(150%) blur(14px); -webkit-backdrop-filter: saturate(150%) blur(14px); border-bottom-color: var(--line-soft); }
+  .nav .shell { display: flex; align-items: center; gap: 24px; }
+  .brand { font-weight: 800; letter-spacing: -0.02em; }
+  .brand span { margin-left: 10px; font-size: 12px; font-weight: 600; color: var(--ink-3); letter-spacing: .06em; }
+  .nav__links { margin-left: auto; display: flex; gap: 22px; }
+  .nav__links a { position: relative; font-size: 13.5px; font-weight: 600; color: var(--ink-2); transition: color .2s; }
+  .nav__links a:hover, .nav__links a.is-active { color: var(--ink); }
+  .nav__links a.is-active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 1.5px; background: var(--accent); }
+  .nav__mail { font-size: 13.5px; font-weight: 700; color: var(--accent); }
+  .progress { position: fixed; top: 0; left: 0; height: 2px; width: 0; z-index: 101; background: linear-gradient(90deg, var(--ci-rose), var(--ci-purple)); }
+  @media (max-width: 760px) { .nav__links { display: none; } .brand span { display: none; } .nav__mail { margin-left: auto; } }
+
+  /* 공통 타이포 */
+  .eyebrow { display: block; margin-bottom: 18px; font-family: var(--mono); font-size: 11.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+  .title { font-size: clamp(24px, 2.6vw, 34px); font-weight: 800; line-height: 1.3; letter-spacing: -0.025em; text-wrap: balance; word-break: keep-all; }
+  .lead { margin-top: 16px; max-width: 56ch; font-size: clamp(15px, 1.1vw, 17px); line-height: 1.7; color: var(--ink-2); word-break: keep-all; text-wrap: pretty; }
+  .mark { background: linear-gradient(to top, var(--accent-soft) 0 40%, transparent 40%); padding: 0 2px; }
+  .link { color: var(--accent); font-weight: 700; }
+  .link::after { content: " ↗"; font-weight: 400; }
+  .section { padding-top: clamp(80px, 11vh, 140px); }
+  .section-head { display: grid; grid-template-columns: 1fr; gap: 8px 48px; padding-bottom: 28px; border-bottom: 1px solid var(--ink); margin-bottom: 8px; }
+  @media (min-width: 820px) { .section-head { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); align-items: end; } .section-head .lead { margin-top: 0; } }
+
+  /* 히어로 */
+  .hero { position: relative; padding-top: calc(var(--nav-h) + clamp(56px, 10vh, 120px)); padding-bottom: clamp(48px, 7vh, 88px); }
+  .hero__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 44px; align-items: start; }
+  @media (min-width: 820px) { .hero__grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: clamp(48px, 7vw, 96px); } }
+  .hero__kicker { display: block; margin-bottom: 24px; font-family: var(--mono); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
+  .hero__title { font-size: clamp(36px, 5.2vw, 66px); font-weight: 800; line-height: 1.1; letter-spacing: -0.035em; word-break: keep-all; }
+  .hero__lead { margin-top: 28px; max-width: 52ch; font-size: clamp(16px, 1.2vw, 18px); line-height: 1.75; color: var(--ink-2); word-break: keep-all; }
+  .hero__lead b { color: var(--ink); font-weight: 700; }
+  .hero__actions { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 10px 28px; align-items: center; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 26px; border-radius: 999px; background: var(--ink); color: #fff; font-size: 14px; font-weight: 700; transition: background .2s, transform .15s; }
+  .btn:hover { background: var(--ci-rose); }
+  .btn:active { transform: translateY(1px); }
+  .hero__facts { margin-top: 52px; padding-top: 24px; border-top: 1px solid var(--ink); display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px 24px; }
+  @media (min-width: 560px) { .hero__facts { grid-template-columns: repeat(4, 1fr); } }
+  .fact__value { font-size: 26px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .fact__value small { font-size: 13px; font-weight: 600; color: var(--ink-3); margin-left: 3px; letter-spacing: 0; }
+  .fact__label { margin-top: 8px; font-size: 12.5px; color: var(--ink-3); }
+
+  .profile { display: grid; gap: 18px; }
+  /* 오른쪽 프로필은 왼쪽 제목("흩어진 기준을")과 같은 높이에서 시작한다: 키커 한 줄 높이 + 키커 아래 여백 */
+  @media (min-width: 820px) { .profile { padding-top: calc(12px * 1.6 + 24px); } }
+  .profile__top { display: flex; align-items: center; gap: 16px; }
+  .profile__photo { width: 88px; height: 88px; flex: none; object-fit: cover; object-position: center 30%; border-radius: 50%; background: #fff; }
+  .profile__name { font-size: 19px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.3; }
+  .profile__name small { display: block; margin-top: 3px; font-size: 13px; font-weight: 500; color: var(--ink-2); }
+  .profile__rows { border-top: 1px solid var(--line); }
+  .profile__row { display: grid; grid-template-columns: 64px 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line-soft); font-size: 13.5px; line-height: 1.5; }
+  .profile__row dt { color: var(--ink-3); }
+  .profile__row dd a { color: var(--accent); font-weight: 600; }
+
+  /* 프로젝트 */
+  .case { padding: clamp(40px, 5vw, 64px) 0; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px 56px; }
+  @media (min-width: 820px) { .case { grid-template-columns: minmax(0, 260px) minmax(0, 1fr); } }
+  .case__aside { display: grid; gap: 18px; align-content: start; }
+  @media (min-width: 820px) { .case__aside { position: sticky; top: calc(var(--nav-h) + 24px); } }
+  .case__logo { height: 40px; display: flex; align-items: center; }
+  .case__logo img { height: 100%; width: auto; }
+  .case__logo--emour img { height: 22px; }
+  .case__logo--dio img { height: 38px; }
+  .case__logo--gonggu img { height: 30px; }
+  .case__logo--ploty img { height: 56px; margin: -10px 0 -10px -8px; }
+  .case__meta { font-size: 13px; line-height: 1.7; color: var(--ink-3); }
+  .case__meta b { display: block; color: var(--ink); font-weight: 700; }
+  .case__nums { display: grid; grid-template-columns: repeat(2, auto); justify-content: start; gap: 14px 28px; padding-top: 18px; border-top: 1px solid var(--line-soft); }
+  .num b { display: block; font-size: 24px; font-weight: 800; letter-spacing: -0.03em; line-height: 1; color: var(--purple); font-variant-numeric: tabular-nums; }
+  .num b small { font-size: 12px; color: var(--ink-3); margin-left: 2px; font-weight: 600; }
+  .num span { display: block; margin-top: 6px; font-size: 12px; color: var(--ink-3); }
+  .case__links { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13.5px; }
+  .case__title { font-size: clamp(22px, 2.4vw, 30px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.25; word-break: keep-all; }
+  .case__one { margin-top: 12px; font-size: 16px; line-height: 1.7; color: var(--ink-2); word-break: keep-all; max-width: 60ch; }
+  .case__mine { margin-top: 16px; padding: 14px 16px; border-left: 2px solid var(--ci-rose); font-size: 14.5px; line-height: 1.7; color: var(--ink); word-break: keep-all; background: var(--bg-tint); }
+  .case__mine b { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; color: var(--accent); margin-right: 8px; }
+  .case__steps { margin-top: 24px; display: grid; }
+  .case__step { display: grid; grid-template-columns: 56px 1fr; gap: 14px; padding: 12px 0; border-top: 1px solid var(--line-soft); font-size: 15px; line-height: 1.7; word-break: keep-all; }
+  .case__step dt { font-family: var(--mono); font-size: 11.5px; letter-spacing: .12em; color: var(--ink-3); padding-top: 5px; }
+  .case__step--limit dt { color: var(--purple); }
+  .case__step--limit dd { color: var(--ink-2); }
+  .case__stack { margin-top: 20px; font-size: 13px; color: var(--ink-3); }
+  .case__stack b { color: var(--ink-2); font-weight: 600; margin-right: 8px; }
+  figure.shot { margin-top: 26px; }
+  figure.shot img { width: 100%; height: auto; border: 1px solid var(--line-soft); border-radius: 6px; background: #fff; }
+  figure.shot figcaption { margin-top: 8px; font-size: 12.5px; color: var(--ink-3); }
+  .code { margin-top: 20px; }
+  .code__label { font-family: var(--mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; }
+  .code pre { padding: 16px 18px; border-radius: 6px; background: #f6f5f9; border: 1px solid var(--line-soft); font-family: var(--mono); font-size: 12.5px; line-height: 1.6; color: var(--ink); overflow-x: auto; tab-size: 2; }
+  .code pre .c { color: var(--ink-3); }
+  .code pre .k { color: var(--purple); }
+  .code pre .s { color: var(--accent); }
+  .code__note { margin-top: 8px; font-size: 13px; line-height: 1.6; color: var(--ink-2); word-break: keep-all; }
+
+  /* 일하는 방식 */
+  .principle { display: grid; grid-template-columns: 56px 1fr; gap: 16px; padding: 26px 0; border-bottom: 1px solid var(--line-soft); }
+  @media (min-width: 820px) { .principle { grid-template-columns: 56px minmax(0, 300px) minmax(0, 1fr); gap: 32px; } }
+  .principle__num { font-family: var(--mono); font-size: 12px; color: var(--accent); padding-top: 6px; }
+  .principle__title { font-size: 19px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.35; }
+  .principle__desc { color: var(--ink-2); font-size: 15px; line-height: 1.7; word-break: keep-all; grid-column: 2; }
+  @media (min-width: 820px) { .principle__desc { grid-column: 3; } }
+
+  /* 역량 — 막대 + 사유 */
+  .skills { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 56px; }
+  @media (min-width: 820px) { .skills { grid-template-columns: 1fr 1fr; } }
+  .skill { display: grid; grid-template-columns: 1fr; gap: 6px 12px; padding: 16px 0; border-bottom: 1px solid var(--line-soft); align-content: start; }
+  .skill__name { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
+  .skill__pct { font-family: var(--mono); font-size: 12px; color: var(--purple); align-self: end; }
+  .skill__bar { grid-column: 1 / -1; height: 4px; border-radius: 2px; background: var(--purple-soft); overflow: hidden; }
+  .skill__bar i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--ci-rose), var(--ci-purple)); transition: width 1s var(--ease); }
+  .is-in .skill__bar i { width: var(--w); }
+  .skill__why { grid-column: 1 / -1; font-size: 13px; line-height: 1.6; color: var(--ink-2); word-break: keep-all; }
+  .skills-note { margin-top: 14px; font-size: 12.5px; color: var(--ink-3); }
+
+  /* 개인 프로젝트 · 경력 · 교육 */
+  .side { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px 48px; padding: 26px 0; border-bottom: 1px solid var(--line-soft); }
+  @media (min-width: 820px) { .side { grid-template-columns: minmax(0, 260px) minmax(0, 1fr); } }
+  .side__title { font-size: 18px; font-weight: 800; letter-spacing: -0.02em; }
+  .side__title small { display: block; margin-top: 4px; font-size: 12.5px; font-weight: 500; color: var(--ink-3); }
+  .side__desc { color: var(--ink-2); font-size: 15px; line-height: 1.7; word-break: keep-all; max-width: 60ch; }
+  .side__more { margin-top: 10px; font-size: 14.5px; line-height: 1.7; color: var(--ink-2); word-break: keep-all; max-width: 60ch; }
+  .side__links { margin-top: 10px; display: flex; gap: 18px; font-size: 13.5px; }
+  .row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px 48px; padding: 20px 0; border-bottom: 1px solid var(--line-soft); }
+  @media (min-width: 640px) { .row { grid-template-columns: 160px minmax(0, 1fr); } }
+  .row__k { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; color: var(--ink-3); padding-top: 5px; }
+  .row h3 { font-size: 16px; font-weight: 800; letter-spacing: -0.01em; }
+  .row p { margin-top: 4px; font-size: 14.5px; line-height: 1.65; color: var(--ink-2); word-break: keep-all; }
+  .row--plain p { margin-top: 0; font-size: 15px; color: var(--ink); }
+  .subhead { margin-top: 40px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+
+  footer { margin-top: clamp(64px, 9vh, 120px); padding: 24px 0 56px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--ink-3); }
+  footer .shell { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+
+  /* 인쇄 · PDF — 상단바와 배경을 빼고, 등장 연출을 끄고, 행이 페이지 사이에서 잘리지 않게 */
+  @media print {
+    @page { size: A4; margin: 14mm 12mm; }
+    html { scroll-padding-top: 0; }
+    body { font-size: 11pt; background: #fff; }
+    .nav, .progress, .atmosphere, .sr-only, .scroll-cue { display: none !important; }
+    [data-reveal], [data-reveal].is-in { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .hero { padding-top: 0; padding-bottom: 32px; min-height: 0; }
+    .hero__title { font-size: 30pt; }
+    .section { padding-top: 36px; }
+    .case__aside { position: static; }
+    .case, .side, .row, .principle, .skill, figure.shot, .code { break-inside: avoid; page-break-inside: avoid; }
+    .section-head { break-after: avoid; page-break-after: avoid; }
+    h2, h3 { break-after: avoid; page-break-after: avoid; }
+    .btn { display: none; }
+    a::after { content: none !important; }
+    .link { color: var(--accent); }
+    figure.shot img { max-height: 90mm; width: auto; max-width: 100%; }
+    .code pre { white-space: pre-wrap; word-break: break-all; font-size: 9pt; }
+    footer { margin-top: 24px; }
+  }
+
+  [data-reveal] { opacity: 0; transform: translate3d(0, 16px, 0); transition: opacity .7s var(--ease), transform .7s var(--ease); transition-delay: var(--delay, 0ms); }
+  [data-reveal].is-in { opacity: 1; transform: none; }
+  html:not(.js) [data-reveal], html.reveal-fallback [data-reveal] { opacity: 1 !important; transform: none !important; }
+  html:not(.js) .skill__bar i, html.reveal-fallback .skill__bar i { width: var(--w); }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    [data-reveal], [data-reveal].is-in { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .skill__bar i { width: var(--w); transition: none; }
+  }
+  </style>
+
+  <script>
+    document.documentElement.classList.add("js");
+    setTimeout(function () { if (!document.documentElement.classList.contains("is-ready")) document.documentElement.classList.add("reveal-fallback"); }, 1800);
+  </script>
+</head>
+
+<body>
+  <a class="sr-only" href="#main">본문으로 건너뛰기</a>
+  <div class="atmosphere" aria-hidden="true"></div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
+    <div class="shell">
+      <a class="brand" href="#top">황민희<span>PORTFOLIO</span></a>
+      <nav class="nav__links" aria-label="섹션">
+        <a href="#work" data-nav="work">프로젝트</a>
+        <a href="#about" data-nav="about">일하는 방식</a>
+        <a href="#skills" data-nav="skills">역량</a>
+        <a href="#side" data-nav="side">개인 프로젝트</a>
+        <a href="#exp" data-nav="exp">수상 · 경력</a>
+      </nav>
+      <a class="nav__mail" href="#contact">Contact</a>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- 히어로 -->
+    <section class="hero" id="top">
+      <div class="shell hero__grid">
+        <div data-reveal-group="100">
+          <span class="hero__kicker" data-reveal>황민희 · Software Developer</span>
+          <h1 class="hero__title" data-reveal>흩어진 기준을<br><span class="mark">하나의 문서</span>로<br>묶습니다</h1>
+          <div class="hero__actions" data-reveal>
+            <a class="btn" href="#work">프로젝트 보기</a>
+            <a class="link" href="https://github.com/biainmaze0507-alt" target="_blank" rel="noopener">GitHub</a>
+          </div>
+          </div>
+
+        <aside class="profile" data-reveal aria-label="프로필">
+          <div class="profile__top">
+            <img class="profile__photo" src="assets/profile.png" alt="황민희" width="88" height="88">
+            <div class="profile__name">황민희<small>Software Developer · SSAFY 15기</small></div>
+          </div>
+          <dl class="profile__rows">
+            <div class="profile__row"><dt>주력</dt><dd>React · React Native · LLM 파이프라인 · 디자인 시스템</dd></div>
+            <div class="profile__row"><dt>경력</dt><dd>더벤처스 투자관리팀 인턴 7개월</dd></div>
+            <div class="profile__row"><dt>자격</dt><dd>SQLD · 컴퓨터활용능력 1급 · OPIc IH · HSK 5급</dd></div>
+            <div class="profile__row"><dt>메일</dt><dd><a href="mailto:krista02@naver.com">krista02@naver.com</a></dd></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 프로젝트 -->
+    <section class="section" id="work">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <div><span class="eyebrow">Selected Work</span><h2 class="title">문제를 어떻게 정의했고,<br>무엇을 포기했는지</h2></div>
+        </div>
+
+        <!-- DIO -->
+        <article class="case" data-reveal>
+          <div class="case__aside">
+            <div class="case__logo case__logo--dio"><img src="assets/logos/dio.svg" alt="DIO"></div>
+            <p class="case__meta"><b>Frontend · 디자인 가이드</b>2026.09 – 10 · 6인<br>SSAFY 자율 프로젝트 · v1.0.0 출시</p>
+            
+          </div>
+          <div>
+            <h3 class="case__title">하루 한 장의 사진을 캔버스 삼아 함께 꾸미는 공유 다이어리</h3>
+            <p class="case__one">React Native 편집기의 기능과 성능 개선, 그리고 팀 전체가 따르는 디자인 가이드 작성을 담당했습니다.</p>
+            <p class="case__mine"><b>담당</b>레이어·페이지 다중 선택과 함께 옮기기, 지우개 영역 지우기, 올가미 선택 표시, 마스킹테이프 색 쌍 저장, 텍스트 하이퍼링크·격자 가이드·한국어 글꼴, GIF·PDF 내보내기 화질과 속도, iPad 배포 설정, 디자인 가이드(BI·CI·인앱 UI)와 2026 디자인 트렌드 검토 문서.</p>
+            <dl class="case__steps">
+              <div class="case__step"><dt>문제</dt><dd>펜, 지우개, 올가미, 테이프, 텍스트까지 도구가 늘수록 화면마다 색과 굵기, 선택 표현이 달라졌습니다.</dd></div>
+              <div class="case__step"><dt>결정</dt><dd>BI·CI·인앱 UI를 한 문서로 묶은 디자인 가이드를 쓰고, 토큰 외의 값은 사용하지 않도록 규칙을 세웠습니다. 새 화면은 이 문서 하나만 보고 만들 수 있게 했습니다.</dd></div>
+              <div class="case__step"><dt>결과</dt><dd>iPad를 포함해 v1.0.0을 출시했습니다. 다이어리·페이지·요소 ID를 UUID로 전환해 기기 간 충돌을 제거했고, 내보내기 화질을 올리면서 GIF·PDF 생성 속도도 개선했습니다.</dd></div>
+              <div class="case__step case__step--limit"><dt>한계</dt><dd>Android와 iOS 실기기에서의 일부 동작은 웹 빌드로만 확인했습니다.</dd></div>
+            </dl>
+            <p class="case__stack"><b>Stack</b>React Native · Expo · react-native-svg · Spring Boot · PostgreSQL</p>
+          </div>
+        </article>
+
+        <!-- Emour -->
+        <article class="case" data-reveal>
+          <div class="case__aside">
+            <div class="case__logo case__logo--emour"><img src="assets/logos/emour-wordmark.svg" alt="Emour"></div>
+            <p class="case__meta"><b>Frontend · 디자인 시스템</b>2026.07 – 08 · 6인<br>SSAFY 공통 프로젝트</p>
+            <div class="case__nums">
+              <div class="num"><b>4.56<small>/ 5</small></b><span>채팅 편의성 · 설문 45명</span></div>
+              <div class="num"><b>291</b><span>베타 테스터</span></div>
+            </div>
+            <div class="case__links"><a class="link" href="https://biainmaze0507-alt.github.io/emour-landing/" target="_blank" rel="noopener">소개 사이트</a><a class="link" href="https://github.com/biainmaze0507-alt/emour-landing" target="_blank" rel="noopener">GitHub</a></div>
+          </div>
+          <div>
+            <h3 class="case__title">대화를 AI가 15가지 감정으로 읽어 주는 커플 메신저</h3>
+            <p class="case__one">로그인, 대시보드, 채팅방 화면을 구현하고 열다섯 화면의 디자인 기준을 정했습니다. 소개 사이트는 단독으로 제작했습니다.</p>
+            <p class="case__mine"><b>담당</b>회원가입·로그인·대시보드·채팅방 화면, 디자인 토큰 체계와 병합 정리, 77개 엔드포인트 연결, 소개 사이트 6페이지 기획·디자인·구현.</p>
+            <dl class="case__steps">
+              <div class="case__step"><dt>문제</dt><dd>여섯 명이 각자 만든 화면이 전환할 때마다 다른 서비스처럼 보였고, 실시간 채팅은 과거 메시지를 불러올 때 스크롤 위치가 흔들리고 메시지가 중복 저장됐습니다.</dd></div>
+              <div class="case__step"><dt>결정</dt><dd>담당 기능을 다른 팀원에게 넘기고 디자인 토큰 설계와 병합 정리를 맡았습니다. 브랜드색 위 흰 글씨의 명도 대비 2.7:1을 버튼 색만 분리해 4.4:1로 올렸습니다. 과거 메시지 로드 시 높이 차만큼 스크롤을 보정하고, 클라이언트 UUID를 중복 방지 키로 쓰도록 백엔드와 합의했습니다.</dd></div>
+              <div class="case__step"><dt>결과</dt><dd>77개 엔드포인트를 일정 안에 연결했고, 2일간 291명이 참여한 베타 테스트에서 채팅 편의성 4.56점을 받았습니다. 소개 사이트는 문구와 수치를 데이터 파일로 분리해 배포 후 수정을 비개발 팀원이 직접 했습니다.</dd></div>
+              <div class="case__step case__step--limit"><dt>한계</dt><dd>감정 분석을 서버가 일괄 처리해 메시지 표시 후 감정 태그가 늦게 붙습니다. 그 사이의 화면 처리는 해결하지 못했습니다.</dd></div>
+            </dl>
+            <div class="code">
+              <div class="code__label">useInfiniteScroll.js — 과거 메시지 로드 후 스크롤 보정</div>
+<pre><span class="c">// 로드 직전 높이를 기억해 두고, 로드가 끝나면 늘어난 만큼만 스크롤을 내린다.</span>
+<span class="k">const</span> restoreScrollPosition = useCallback(() =&gt; {
+  <span class="k">const</span> container = containerRef.current;
+  <span class="k">if</span> (!container) <span class="k">return</span>;
+  <span class="k">const</span> diff = container.scrollHeight - prevScrollHeightRef.current;
+  <span class="k">if</span> (diff &gt; 0) container.scrollTop += diff;
+}, []);</pre>
+              <p class="code__note">IntersectionObserver로 맨 위 감시 요소가 보이면 불러오고, 그 직전에 <code>scrollHeight</code>를 저장합니다. 읽던 메시지가 제자리에 남습니다.</p>
+            </div>
+            <figure class="shot"><img src="assets/shots/emour-og.png" alt="Emour 소개 사이트 공유 이미지" width="1200" height="630" loading="lazy"><figcaption>소개 사이트 공유 카드</figcaption></figure>
+            <p class="case__stack"><b>Stack</b>React 19 · Vite · STOMP / SockJS · Design Tokens · Spring Boot · Redis</p>
+          </div>
+        </article>
+
+        <!-- 공구한 -->
+        <article class="case" data-reveal>
+          <div class="case__aside">
+            <div class="case__logo case__logo--gonggu"><img src="assets/logos/gonggu-wordmark.svg" alt="공구한"></div>
+            <p class="case__meta"><b>Frontend</b>2026.08 – 09 · 6인<br>SSAFY 특화 프로젝트</p>
+            
+          </div>
+          <div>
+            <h3 class="case__title">카드·카카오페이·코인 결제와 에스크로를 갖춘 공동구매 플랫폼</h3>
+            <p class="case__one">HTML 목업 19개 화면을 React와 TypeScript로 이관하고, 목 서버를 제거한 뒤 실제 백엔드와 연동하는 일을 담당했습니다.</p>
+            <p class="case__mine"><b>담당</b>구매 흐름(목록·상세·배송지·결제·완료), 거래관리(구매확정·반품·이의제기), 판매자센터(상품·공동구매·주문·반품·정산), 결제 슬롯, API 계약 검사, 미구현 API 플래그, 목업 CSS의 토큰 이관.</p>
+            <dl class="case__steps">
+              <div class="case__step"><dt>문제</dt><dd>서버 응답이 명세와 달라도 타입 검사는 통과하고 화면만 비어 있었습니다. 공동구매 id가 문자열이 아닌 숫자로 오거나 코인 결제 상태의 키 이름이 다른 일이 실제로 여러 번 있었습니다.</dd></div>
+              <div class="case__step"><dt>결정</dt><dd>개발 환경에서만 응답을 zod 스키마와 대조해 어긋난 필드를 콘솔에 보고하되 화면은 막지 않도록 했고, 스키마 이름만 전달해 프로덕션 번들에 zod가 포함되지 않게 했습니다. 미구현 API는 가짜 데이터 대신 '준비 중'으로 안내하고 플래그 하나로 활성화되게 했습니다.</dd></div>
+              <div class="case__step"><dt>결과</dt><dd>결제, 배송, 반품, 판매자센터까지 명세서의 엔드포인트 대부분을 연동했습니다. 결제 수단을 선택하면 5분간 자리를 확보하는 슬롯을 두었고, 카드번호는 승인 요청에만 사용하고 상태나 로그에 남기지 않았습니다.</dd></div>
+              <div class="case__step case__step--limit"><dt>한계</dt><dd>토큰 재발급 API가 없어 액세스 토큰이 만료되는 30분마다 다시 로그인해야 합니다. 관리자 화면은 구현하지 못했습니다.</dd></div>
+            </dl>
+            <div class="code">
+              <div class="code__label">contract.ts — 개발 중에만 서버 응답을 스키마와 대조</div>
+<pre><span class="k">export function</span> checkContract(name: SchemaName | <span class="k">undefined</span>, data: <span class="k">unknown</span>, where: <span class="k">string</span>): <span class="k">void</span> {
+  <span class="k">if</span> (!import.meta.env.DEV || name === <span class="k">undefined</span>) <span class="k">return</span>
+  <span class="k">void</span> report(name, data, where)
+}
+
+<span class="k">async function</span> report(name: SchemaName, data: <span class="k">unknown</span>, where: <span class="k">string</span>) {
+  registry ??= <span class="k">import</span>(<span class="s">'./schemas'</span>).then((m) =&gt; m.schemas)   <span class="c">// zod는 DEV 분기 안에서만 적재</span>
+  <span class="k">const</span> result = (<span class="k">await</span> registry)[name].safeParse(data)
+  <span class="k">if</span> (result.success) <span class="k">return</span>
+  console.error([<span class="s">`[API 계약 불일치] ${where}`</span>, ...issues(result), <span class="s">`  서버가 보낸 키: ${keysOf(data)}`</span>].join(<span class="s">'\n'</span>))
+}</pre>
+              <p class="code__note">스키마 객체가 아니라 이름을 받는 이유는 번들 크기입니다. 객체를 받으면 호출부가 zod를 정적으로 끌고 와 프로덕션에도 실립니다.</p>
+            </div>
+            <figure class="shot"><img src="assets/shots/gonggu-checkout.png" alt="공구한 결제 화면" width="1440" height="983" loading="lazy"><figcaption>결제 화면 · 결제 수단 선택 시 자리 확보 타이머</figcaption></figure>
+            <p class="case__stack"><b>Stack</b>React 19 · TypeScript (strict) · TanStack Query · Zustand · React Router · Vitest · Spring Boot · web3j</p>
+          </div>
+        </article>
+
+        <!-- Ploty -->
+        <article class="case" data-reveal>
+          <div class="case__aside">
+            <div class="case__logo case__logo--ploty"><img src="assets/logos/ploty.png" alt="Ploty"></div>
+            <p class="case__meta"><b>PM · AI 파이프라인 · Frontend</b>2026.05 – 06 · 2인<br>SSAFY 관통 프로젝트</p>
+            
+          </div>
+          <div>
+            <h3 class="case__title">동서양 설화로 창작 모티프와 플롯 초안을 추천하는 서비스</h3>
+            <p class="case__one">2인 팀의 PM으로 AI 파이프라인과 프론트엔드를 담당했고, 모델이 틀릴 때 서비스가 어떻게 동작할지를 설계했습니다.</p>
+            <p class="case__mine"><b>담당</b>설화 데이터 수집(크롤링, 아카이브 기관 이용 허가)과 라벨링·임베딩, 추천 파이프라인 설계와 구현, DB 설계, 화면과 디자인.</p>
+            <dl class="case__steps">
+              <div class="case__step"><dt>문제</dt><dd>LLM 단일 호출은 같은 질문에 다른 답을 냈고, 존재하지 않는 모티프 코드를 생성했습니다. 응답에는 9초에서 12초가 걸렸습니다.</dd></div>
+              <div class="case__step"><dt>결정</dt><dd>범주 추론, 후보 500개, 10개 선별, 임베딩 유사도 계산의 단계로 나누고 화면에는 현재 단계를 표시했습니다. 결과에는 모티프 코드와 원문, 유사도를 함께 보여 근거를 확인할 수 있게 했습니다.</dd></div>
+              <div class="case__step"><dt>결과</dt><dd>반환값을 DB 값과 교집합만 남겨 환각을 걸러냈고, 외부 API가 실패해도 유사 설화 목록은 제공됩니다.</dd></div>
+              <div class="case__step case__step--limit"><dt>한계</dt><dd>응답 시간 자체는 줄이지 못했습니다. 대기 상태를 설명하는 쪽을 택했습니다.</dd></div>
+            </dl>
+            <div class="code">
+              <div class="code__label">services.py — LLM 반환값을 DB에 있는 값과만 교집합</div>
+<pre>raw = call_gms_llm(system_prompt, user_prompt, max_tokens=<span class="s">512</span>)
+<span class="k">try</span>:
+    result = json.loads(raw.strip().strip(<span class="s">"```"</span>).replace(<span class="s">"json"</span>, <span class="s">""</span>, <span class="s">1</span>).strip())
+    <span class="k">if</span> isinstance(result, list):
+        valid = set(get_all_divisions())           <span class="c"># DB에 실제 존재하는 값만</span>
+        <span class="k">return</span> [d <span class="k">for</span> d <span class="k">in</span> result <span class="k">if</span> d <span class="k">in</span> valid]  <span class="c"># LLM이 살짝 바꿔도 방어</span>
+<span class="k">except</span> (json.JSONDecodeError, ValueError):
+    <span class="k">pass</span>
+<span class="k">return</span> []</pre>
+              <p class="code__note">빈 목록이 돌아오면 다음 단계는 범주 필터 없이 임베딩 검색만으로 진행합니다. 한 단계가 실패해도 결과가 비지 않습니다.</p>
+            </div>
+            
+            <p class="case__stack"><b>Stack</b>Vue · Django REST · OpenAI API · BGE-M3 · SQLite</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 일하는 방식 -->
+    <section class="section" id="about">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <div><span class="eyebrow">How I Work</span><h2 class="title">기준을 적고, 지켜지게 만들고,<br>수치로 확인합니다</h2></div>
+        </div>
+        <div data-reveal-group>
+          <div class="principle" data-reveal>
+            <span class="principle__num">01</span>
+            <h3 class="principle__title">기준을 적습니다</h3>
+            <p class="principle__desc">Emour의 디자인 토큰, DIO의 디자인 가이드, 투자사의 업무 흐름도. 흩어진 기준을 한 문서로 모으는 일부터 맡아 왔습니다. 구두 합의는 사람마다 다르게 기억되지만, 문서로 남긴 규칙은 그대로 지켜졌습니다.</p>
+          </div>
+          <div class="principle" data-reveal>
+            <span class="principle__num">02</span>
+            <h3 class="principle__title">실패부터 설계합니다</h3>
+            <p class="principle__desc">소켓이 끊길 때, 응답이 늦을 때, 서버 응답이 명세와 다를 때, 모델이 없는 값을 생성할 때. 그 순간 사용자가 무엇을 보게 할지를 먼저 정한 뒤 정상 흐름을 구현합니다.</p>
+          </div>
+          <div class="principle" data-reveal>
+            <span class="principle__num">03</span>
+            <h3 class="principle__title">수치로 확인합니다</h3>
+            <p class="principle__desc">베타 테스트 설문 점수, 명도 대비 비율, 내보내기 화질과 속도, 정답 대비 F1. 개선 여부는 인상이 아니라 수치로 판단합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 역량 -->
+    <section class="section" id="skills">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <div><span class="eyebrow">Skills</span><h2 class="title">프로젝트에서 직접 쓴 것만</h2></div>
+        </div>
+        <div class="skills" data-reveal>
+          <div class="skill"><span class="skill__name">React</span><p class="skill__why">Emour의 실시간 채팅, 공구한의 결제 흐름, DIO의 캔버스 편집기.</p></div>
+          <div class="skill"><span class="skill__name">TypeScript</span><p class="skill__why">공구한에서 strict와 exactOptionalPropertyTypes를 켠 채 명세서의 상태 전이를 타입으로 고정했습니다.</p></div>
+          <div class="skill"><span class="skill__name">React Native · Expo</span><p class="skill__why">DIO 편집기 기능과 성능 개선, iPad 배포 설정, v1.0.0 출시.</p></div>
+          <div class="skill"><span class="skill__name">디자인 시스템 · 접근성</span><p class="skill__why">Emour 디자인 토큰, DIO 디자인 가이드, 명도 대비 기준 적용.</p></div>
+          <div class="skill"><span class="skill__name">Python · LLM 파이프라인</span><p class="skill__why">Ploty의 단계형 추천과 환각 검증, 더벤처스 업무 챗봇, 개인 프로젝트의 모델 조합과 벤치마크.</p></div>
+          <div class="skill"><span class="skill__name">Django REST · SQL</span><p class="skill__why">Ploty 백엔드와 DB 설계를 직접 했고, Emour·공구한에서는 명세서와 스키마를 읽고 연동했습니다.</p></div>
+          <div class="skill"><span class="skill__name">Vue</span><p class="skill__why">Ploty 화면 전체.</p></div>
+          <div class="skill"><span class="skill__name">Git · 협업 문서</span><p class="skill__why">Conventional Commits와 PR 규칙을 따랐고, README·API 명세·디자인 가이드를 팀이 보는 문서로 작성했습니다.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 개인 프로젝트 -->
+    <section class="section" id="side">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <div><span class="eyebrow">Side Projects</span><h2 class="title">로컬 AI 도구와 서버리스 웹</h2></div>
+          <p class="lead">공개 모델과 정적 호스팅만으로 동작하는 개인 프로젝트입니다.</p>
+        </div>
+        <div data-reveal-group>
+          <article class="side" data-reveal>
+            <h3 class="side__title">MML 변환기<small>Python · PyTorch · ONNX · JavaScript</small></h3>
+            <div>
+              <p class="side__desc">음원이나 MIDI를 3화음 악보 문법(MML)으로 변환하는 로컬 도구입니다. 음원 분리, 노래 채보, 음높이, 비트 추출 모델 9종의 결과를 투표로 합치고, 편곡 후보 여러 개를 멜로디·화성·글자 수 기준으로 채점해 하나를 고릅니다.</p>
+              <p class="side__more">사람이 만든 악보 4곡을 정답으로 두고 멜로디 F1과 반주·베이스 일치율을 재는 벤치마크를 만들어, 정렬 방식과 멜로디 기준을 바꾸며 멜로디 F1을 0.383에서 0.460으로 올렸습니다. 효과가 없던 실험은 기본에서 끄고 기록만 남겼습니다.</p>
+            </div>
+          </article>
+          <article class="side" data-reveal>
+            <h3 class="side__title">픽셀아트 생성기<small>Python · diffusers · NumPy</small></h3>
+            <div>
+              <p class="side__desc">한국어 설명과 필수 색을 입력하면 생성 모델이 그리고, 격자 1칸 1픽셀과 고정 팔레트 규격으로 후처리하는 로컬 도구입니다. 픽셀 격자를 보장하는 공개 모델이 없다는 조사 결과에 따라 생성 모델과 후처리를 분리한 구조로 설계했습니다.</p>
+              <p class="side__more">OKLab 색차에서 격자 주기를 찾아 정수가 아닌 칸 크기도 잡고, 필수 색을 고정 중심으로 둔 k-means로 팔레트를 뽑습니다. 합성 검증 9가지 경우에서 칸 크기 오차 0.03px 이내, 색 복원 99.4% 이상을 확인했습니다.</p>
+            </div>
+          </article>
+          <article class="side" data-reveal>
+            <h3 class="side__title">서버리스 웹 도구<small>Canvas · Google Apps Script · Bootstrap 5</small></h3>
+            <div>
+              <p class="side__desc">벡터 이미지를 영역별 마스크로 나눠 색을 바꾸고 PNG로 저장하는 페이지와, 구성원별 주간 진행 현황을 기록하는 대시보드입니다. 스프레드시트를 데이터베이스로 써서 서버 없이 동작합니다.</p>
+              <div class="side__links"><a class="link" href="https://biainmaze0507-alt.github.io/emblem-colorizer/" target="_blank" rel="noopener">컬러 커스터마이저</a><a class="link" href="https://biainmaze0507-alt.github.io/mabipot-homework/" target="_blank" rel="noopener">대시보드</a></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 경력 · 교육 -->
+    <section class="section" id="exp">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <div><span class="eyebrow">Awards · Experience · Education</span><h2 class="title">수상, 자격, 경력, 교육</h2></div>
+        </div>
+        <div data-reveal>
+          <div class="subhead" style="margin-top:0">수상</div>
+          <div class="row"><span class="row__k">2023.11</span><div><h3>제1회 인문대학 바칼로레아 대회 · 우수상</h3><p>서강대학교 인문대학 학생회 · 논설문 대회</p></div></div>
+          <div class="row"><span class="row__k">2022.11</span><div><h3>2022 LOOKIE DEMO DAY · 최우수상</h3><p>SK 행복나눔재단 LOOKIE · 소셜벤처 창업경진대회 · 반려견 장난감 브랜드 S:Nack으로 참가</p></div></div>
+          <div class="row"><span class="row__k">2022.11</span><div><h3>2022 크래프트 스타트업 챌린지 · 입선</h3><p>서울여성공예센터 더아리움 · 공예 창업경진대회</p></div></div>
+
+          <div class="subhead">자격 · 어학</div>
+          <div class="row"><span class="row__k">2026.05</span><div><h3>OPIc 영어 · Intermediate High</h3></div></div>
+          <div class="row"><span class="row__k">2026.03</span><div><h3>SQL 개발자(SQLD)</h3><p>한국데이터산업진흥원</p></div></div>
+          <div class="row"><span class="row__k">2025.06</span><div><h3>신HSK(IBT) · 5급</h3><p>중국 거주 1년 6개월 (2011 – 2012)</p></div></div>
+          <div class="row"><span class="row__k">2023.08</span><div><h3>컴퓨터활용능력 1급</h3><p>대한상공회의소</p></div></div>
+
+          <div class="subhead">직무 경험</div>
+          <div class="row"><span class="row__k">2024.08 – 2025.02</span><div><h3>더벤처스 · 투자관리팀 인턴 (7개월)</h3><p>투자 심사 신청 기업·포트폴리오 기업 데이터베이스 관리, 투자심의 의사록·보고서 초안 작성. 데이터베이스 이관과 업무 흐름 도식화, 반복 입력을 줄이는 자동화 스크립트·LLM API 기반 사내 지원 챗봇 구축 및 인수인계.</p></div></div>
+          <div class="row"><span class="row__k">2022 – 2023</span><div><h3>창업 동아리 · 아라비티, S:Nack</h3><p>아랍차 브랜드 아라비티의 마케팅과 신사업 기획으로 텀블벅 목표 금액 634% 달성. 반려견 장난감 브랜드 S:Nack의 제품 개발과 판매 총괄.</p></div></div>
+          <div class="row"><span class="row__k">대학 재학 중</span><div><h3>소상공인 상생 서포터즈</h3><p>점포의 지도 플랫폼 등록 지원. 점주가 직접 유지할 수 있는 범위부터 제안.</p></div></div>
+
+          <div class="subhead">교육</div>
+          <div class="row"><span class="row__k">2026.01 – 2026.12</span><div><h3>삼성청년SW·AI아카데미(SSAFY) 15기 · Python 트랙</h3><p>관통·공통·특화·자율 프로젝트 네 번 완주. 데이터 수집·분석·시각화, REST API 설계, 인증 시스템, AI 추천 과정 이수.</p></div></div>
+          <div class="row"><span class="row__k">2021.03 – 2026.02</span><div><h3>서강대학교 중국문화학 · 경영학 전공</h3></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 연락처 -->
+    <section class="section" id="contact">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <div><span class="eyebrow">Contact</span><h2 class="title">연락처</h2></div>
+        </div>
+        <div data-reveal>
+          <div class="row row--plain"><span class="row__k">Email</span><p><a class="link" href="mailto:krista02@naver.com">krista02@naver.com</a></p></div>
+          <div class="row row--plain"><span class="row__k">GitHub</span><p><a class="link" href="https://github.com/biainmaze0507-alt" target="_blank" rel="noopener">github.com/biainmaze0507-alt</a></p></div>
+          <div class="row row--plain"><span class="row__k">Emour</span><p><a class="link" href="https://biainmaze0507-alt.github.io/emour-landing/" target="_blank" rel="noopener">소개 사이트</a></p></div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="shell">
+        <span>© 2026 황민희</span>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+  (function () {
+    var root = document.documentElement, $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+    var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    var nav = document.getElementById("nav"), bar = document.getElementById("progress");
+    var links = $$("[data-nav]"), sections = links.map(function (a) { return document.getElementById(a.dataset.nav); });
+    function onScroll() {
+      var y = window.scrollY, h = root.scrollHeight - root.clientHeight;
+      nav.classList.toggle("is-stuck", y > 8);
+      bar.style.width = (h > 0 ? y / h * 100 : 0) + "%";
+      var cur = -1;
+      sections.forEach(function (s, i) { if (s && s.getBoundingClientRect().top <= 140) cur = i; });
+      links.forEach(function (a, i) { a.classList.toggle("is-active", i === cur); });
+    }
+    addEventListener("scroll", onScroll, { passive: true }); onScroll();
+
+    $$("[data-reveal-group]").forEach(function (g) {
+      var step = Number(g.dataset.revealGroup) || 80;
+      $$("[data-reveal]", g).forEach(function (el, i) { el.style.setProperty("--delay", Math.min(i, 8) * step + "ms"); });
+    });
+    var targets = $$("[data-reveal]");
+    if (reduced || !("IntersectionObserver" in window)) { targets.forEach(function (n) { n.classList.add("is-in"); }); }
+    else {
+      var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } }); }, { rootMargin: "0px 0px -10% 0px", threshold: 0.06 });
+      targets.forEach(function (n) { io.observe(n); });
+    }
+    root.classList.add("is-ready");
+
+    var counters = $$("[data-count]");
+    function count(el) {
+      var to = Number(el.dataset.count), t0 = performance.now(), dur = 1000;
+      if (reduced) { el.textContent = to; return; }
+      (function tick(now) { var p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3); el.textContent = Math.round(to * e); if (p < 1) requestAnimationFrame(tick); })(t0);
+    }
+    if ("IntersectionObserver" in window) {
+      var co = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { count(e.target); co.unobserve(e.target); } }); }, { threshold: 0.4 });
+      counters.forEach(function (c) { co.observe(c); });
+    } else counters.forEach(count);
+  })();
+  </script>
+</body>
+</html>
