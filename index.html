@@ -192,23 +192,54 @@
   /* 인쇄 · PDF — 상단바와 배경을 빼고, 등장 연출을 끄고, 행이 페이지 사이에서 잘리지 않게 */
   @media print {
     @page { size: A4; margin: 14mm 12mm; }
-    html { scroll-padding-top: 0; }
-    body { font-size: 11pt; background: #fff; }
-    .nav, .progress, .atmosphere, .sr-only, .scroll-cue { display: none !important; }
+    html { scroll-behavior: auto; scroll-padding-top: 0; }
+    body { font-size: 10.5pt; background: #fff; }
+    .nav, .progress, .atmosphere, .sr-only, .scroll-cue, .btn, .hero__actions { display: none !important; }
     [data-reveal], [data-reveal].is-in { opacity: 1 !important; transform: none !important; transition: none !important; }
-    .hero { padding-top: 0; padding-bottom: 32px; min-height: 0; }
-    .hero__title { font-size: 30pt; }
-    .section { padding-top: 36px; }
-    .case__aside { position: static; }
-    .case, .side, .row, .principle, .skill, figure.shot, .code { break-inside: avoid; page-break-inside: avoid; }
-    .section-head { break-after: avoid; page-break-after: avoid; }
-    h2, h3 { break-after: avoid; page-break-after: avoid; }
-    .btn { display: none; }
     a::after { content: none !important; }
     .link { color: var(--accent); }
-    figure.shot img { max-height: 90mm; width: auto; max-width: 100%; }
-    .code pre { white-space: pre-wrap; word-break: break-all; font-size: 9pt; }
-    footer { margin-top: 24px; }
+
+    /* 쪽 구성 — 1: 소개+일하는 방식 / 2: DIO / 3·4: Emour / 5·6: 공구한 / 7: Ploty / 8: 역량 / 9: 개인 프로젝트 / 10: 수상·자격 / 11: 경력·교육·연락처 */
+    main { display: flex; flex-direction: column; }
+    .hero { order: -2; padding: 0 0 8px; min-height: 0; }
+    #about { order: -1; padding-top: 20px; }
+    .hero__title { font-size: 27pt; }
+    .hero__lead { margin-top: 18px; font-size: 11pt; }
+    .profile { padding-top: 0; gap: 12px; margin-top: 20px; }
+    .profile__row { padding: 7px 0; }
+    #about .section-head { margin-bottom: 0; padding-bottom: 16px; }
+    .principle { padding: 14px 0; }
+    .section { padding-top: 0; }
+    .section-head { margin-bottom: 16px; padding-bottom: 16px; }
+    .section-head .lead { margin-top: 8px; }
+
+    #work, #skills, #side, #exp { break-before: page; page-break-before: always; }
+    #work .case + .case { break-before: page; page-break-before: always; }
+    #work .case:nth-of-type(2) .code, #work .case:nth-of-type(3) .code { break-before: page; page-break-before: always; padding-top: 4px; }
+    #exp .subhead--page { break-before: page; page-break-before: always; margin-top: 0; }
+    #contact { padding-top: 28px; }
+
+    .case { padding: 8px 0 0; border-bottom: 0; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+    .case__aside { position: static; gap: 10px; }
+    .case__nums { padding-top: 10px; }
+    .case__title { font-size: 17pt; }
+    .case__one { margin-top: 8px; font-size: 11pt; }
+    .case__mine { margin-top: 10px; padding: 10px 12px; font-size: 10pt; }
+    .case__steps { margin-top: 14px; }
+    .case__step { padding: 9px 0; font-size: 10.5pt; line-height: 1.6; }
+    .case__stack { margin-top: 12px; }
+    .code { margin-top: 10px; }
+    .code pre { white-space: pre-wrap; word-break: break-all; font-size: 8.5pt; line-height: 1.5; padding: 12px 14px; }
+    figure.shot { margin-top: 16px; break-before: avoid; page-break-before: avoid; }
+    figure.shot img { max-height: 95mm; width: auto; max-width: 100%; }
+
+    .case, .side, .row, .principle, .skill, figure.shot, .code, .case__steps, .case__mine { break-inside: avoid; page-break-inside: avoid; }
+    .section-head, h2, h3, .subhead { break-after: avoid; page-break-after: avoid; }
+    .skill { padding: 12px 0; }
+    .side { padding: 16px 0; }
+    .row { padding: 12px 0; }
+    .subhead { margin-top: 24px; }
+    footer { margin-top: 20px; padding: 12px 0 0; }
   }
 
   [data-reveal] { opacity: 0; transform: translate3d(0, 16px, 0); transition: opacity .7s var(--ease), transform .7s var(--ease); transition-delay: var(--delay, 0ms); }
@@ -511,7 +542,7 @@
           <div class="row"><span class="row__k">2025.06</span><div><h3>신HSK(IBT) · 5급</h3><p>중국 거주 1년 6개월 (2011 – 2012)</p></div></div>
           <div class="row"><span class="row__k">2023.08</span><div><h3>컴퓨터활용능력 1급</h3><p>대한상공회의소</p></div></div>
 
-          <div class="subhead">직무 경험</div>
+          <div class="subhead subhead--page">직무 경험</div>
           <div class="row"><span class="row__k">2024.08 – 2025.02</span><div><h3>더벤처스 · 투자관리팀 인턴 (7개월)</h3><p>투자 심사 신청 기업·포트폴리오 기업 데이터베이스 관리, 투자심의 의사록·보고서 초안 작성. 데이터베이스 이관과 업무 흐름 도식화, 반복 입력을 줄이는 자동화 스크립트·LLM API 기반 사내 지원 챗봇 구축 및 인수인계.</p></div></div>
           <div class="row"><span class="row__k">2022 – 2023</span><div><h3>창업 동아리 · 아라비티, S:Nack</h3><p>아랍차 브랜드 아라비티의 마케팅과 신사업 기획으로 텀블벅 목표 금액 634% 달성. 반려견 장난감 브랜드 S:Nack의 제품 개발과 판매 총괄.</p></div></div>
           <div class="row"><span class="row__k">대학 재학 중</span><div><h3>소상공인 상생 서포터즈</h3><p>점포의 지도 플랫폼 등록 지원. 점주가 직접 유지할 수 있는 범위부터 제안.</p></div></div>
